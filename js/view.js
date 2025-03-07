@@ -38,7 +38,7 @@ function updateView() {
                     <button onclick="returnCoins()">Angre</button>
                     <button onclick="takeCoins()">Ta myntene</button>
                     <button onclick="buyCoke()">Kjøpe cola</button>
-                    <button>Ta cola</button>
+                    <button onclick = "takeCoke()">Ta cola</button>
                 </div>
             </div>
         </div>

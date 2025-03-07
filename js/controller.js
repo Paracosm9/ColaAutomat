@@ -32,7 +32,6 @@ function insertCoin(value) {
 
 function returnCoins() {
     coinsReturned = [...coinsInserted];
-    console.log("Coins returned: " + coinsReturned);
     coinsInserted = [0, 0, 0, 0];
     updateView();
 }
@@ -43,7 +42,6 @@ function takeCoins() {
 }
 
 function removeInsertedCoinsLogic() {
-    console.log("Got here")
     let temporaryInsertedCoins = [...coinsInserted];
     let temporaryMachineCoins = [...coinsInMachine];
 
@@ -51,28 +49,15 @@ function removeInsertedCoinsLogic() {
     let sumOfCoins = valueFromCoinCounts(temporaryInsertedCoins); 
     let change = sumOfCoins - priceOfCola; 
 
-    console.log ("This is sumOfCoins: " + sumOfCoins); 
-    console.log ("This is change: " + change); 
     temporaryInsertedCoins = proceedMoneyInAnyArray(temporaryInsertedCoins, priceOfCola, temporaryMachineCoins);
     temporaryMachineCoins = proceedMoneyInAnyArray(temporaryMachineCoins, change - (valueFromCoinCounts(temporaryInsertedCoins)), temporaryInsertedCoins); //change minus what is left in the insertedCoins. 
-
-    console.log("before (coinsInserted): ", coinsInserted);
-    console.log("before (coinsInMachine): ", coinsInMachine);
-
-    console.log(temporaryInsertedCoins);
     //coins returned
-    coinsReturned = [...temporaryInsertedCoins]; // That's just for stupid test, I do not accept the assertion of returned, that should be done with insertedCoins array!
+    coinsReturned = [...temporaryInsertedCoins]; 
     coinsInserted = [0,0,0,0]; // - I like it when the change goes back to the machine instead of spilling out somewhere. Maybe I want another bottle of cola?!
     coinsInMachine = [...temporaryMachineCoins]; 
-    console.log("after:", coinsInserted);
-    console.log("after (coinsInMachine): ", coinsInMachine);
-
 }
-
+    //arrayFrom = coinsInserted || coinsInMachine. arrayTo - vice versa
 function proceedMoneyInAnyArray(arrayFrom, amountOfmoneyToProceed, arrayTo) {
-    //arrayFrom = coinsInserted || coinsInMachine. 
-    // amountOfmoneyToProceed = 15
-    let iter = 0; 
     
     while (amountOfmoneyToProceed > 0) {
         console.log(amountOfmoneyToProceed)
@@ -115,4 +100,10 @@ function getIndexWithCoin(arr){
             return[i]
         }
     }
+}
+
+function takeCoke(){
+    console.log(isCokeInDelivery);
+    isCokeInDelivery = false; 
+    updateView();
 }
