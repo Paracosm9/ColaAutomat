@@ -1,21 +1,12 @@
 function buyCoke() {
-
-
     if (cokesInStore > 0) { //we can buy something! 
-
         if (valueFromCoinCounts(coinsInserted) >= 25 ) { //cola price == 25, and coins inserted sum should be 25+
-            // console.log(valueFromCoinCounts(coinsInserted));
-            //to implement : 
-            //put money inside cashholder and return charge :3
-            //coinsInMachine
             removeInsertedCoinsLogic();
-
             cokesInStore--;
             isCokeInDelivery = true;
             updateView();
         }
     }
-
 }
 
 function insertCoin(value) {
@@ -63,15 +54,15 @@ function removeInsertedCoinsLogic() {
     console.log ("This is sumOfCoins: " + sumOfCoins); 
     console.log ("This is change: " + change); 
     temporaryInsertedCoins = proceedMoneyInAnyArray(temporaryInsertedCoins, priceOfCola, temporaryMachineCoins);
-    temporaryMachineCoins = proceedMoneyInAnyArray(temporaryMachineCoins, change - (valueFromCoinCounts(temporaryInsertedCoins)), temporaryInsertedCoins); //change minus what is in insertedCoins. 
+    temporaryMachineCoins = proceedMoneyInAnyArray(temporaryMachineCoins, change - (valueFromCoinCounts(temporaryInsertedCoins)), temporaryInsertedCoins); //change minus what is left in the insertedCoins. 
 
     console.log("before (coinsInserted): ", coinsInserted);
     console.log("before (coinsInMachine): ", coinsInMachine);
 
     console.log(temporaryInsertedCoins);
     //coins returned
-    coinsReturned= [...temporaryInsertedCoins];
-    coinsInserted = [...temporaryInsertedCoins]; // - uncomment, to see, what charges back ) 
+    coinsReturned = [...temporaryInsertedCoins]; // That's just for stupid test, I do not accept the assertion of returned, that should be done with insertedCoins array!
+    coinsInserted = [0,0,0,0]; // - I like it when the change goes back to the machine instead of spilling out somewhere. Maybe I want another bottle of cola?!
     coinsInMachine = [...temporaryMachineCoins]; 
     console.log("after:", coinsInserted);
     console.log("after (coinsInMachine): ", coinsInMachine);
@@ -107,6 +98,7 @@ function proceedMoneyInAnyArray(arrayFrom, amountOfmoneyToProceed, arrayTo) {
             amountOfmoneyToProceed -= coinValueFromIndex(0);
         }
         //if we didn't take anything, but still have some coins - let's take them! 
+        //here we have probably a bug - if there are no coins in machine, that passes, it would give back the max available. 
         else if ( amountOfmoneyToProceed > 0 && (arrayFrom[3]> 0 || arrayFrom[2] > 0 || arrayFrom[1] > 0 || arrayFrom[0] > 0 )){
             let availableCoin = getIndexWithCoin(arrayFrom); 
             arrayFrom[availableCoin]--;
